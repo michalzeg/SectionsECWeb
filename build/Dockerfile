@@ -23,7 +23,6 @@ RUN apt-get update &&\
 FROM net-core-with-node as base-build
 
 WORKDIR /app
-COPY ./Binaries ./Binaries
 COPY ./src ./src
 
 FROM base-build as base-publish
