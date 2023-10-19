@@ -6,8 +6,7 @@
 trigger:
   branches:
     include:
-      - master
-      - Development
+      - main
   paths:
     exclude:
       - backup
@@ -17,8 +16,7 @@ schedules:
   displayName: Daily midnight build
   branches:
     include:
-    - master
-    - Development
+    - main
   always: true
 
 variables:
