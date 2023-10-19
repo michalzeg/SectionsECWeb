@@ -1,0 +1,140 @@
+# .NET Core Function App to Windows on Azure
+# Build a .NET Core function app and deploy it to Azure as a Windows function App.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+  branches:
+    include:
+      - master
+      - Development
+  paths:
+    exclude:
+      - backup
+
+schedules:
+- cron: '0 0 * * *'
+  displayName: Daily midnight build
+  branches:
+    include:
+    - master
+    - Development
+  always: true
+
+variables:
+  # Azure Resource Manager connection created during pipeline creation
+  azureSubscription: 'AzureDefault'
+
+  nodeVersion: '14.x'
+  dotnetVersion: '7'
+  # Agent VM image name
+  vmImageName: 'windows-2022'
+  vmLinuxImageName: 'ubuntu-20.04'
+  appName: 'Web'
+
+
+
+stages:
+- stage: DockerBuild
+  displayName: Docker build stage
+  jobs:
+  - job: BuildDocker
+    pool:
+      vmImage: $(vmLinuxImageName)
+    steps:
+    - task: DockerInstaller@0
+      inputs:
+        dockerVersion: '23.0.3'
+    - task: PowerShell@2
+      displayName: Build docker images
+      inputs:
+        targetType: 'inline'
+        script: 'docker-compose build --no-cache --force-rm --parallel'
+        workingDirectory: 'build'
+- stage: Build
+  displayName: Build stage
+  jobs:
+  - job: BuildSectionsEC
+    pool:
+      vmImage: $(vmImageName)
+    variables:
+      projectName: 'SectionsEC'
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '18.x'
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: '7.x'
+    - task: DotNetCoreCLI@2
+      displayName: Build
+      inputs:
+        command: 'build'
+        arguments: '-c Release'
+    - task: CmdLine@2
+      displayName: SectionsEC install
+      inputs:
+        script: |
+          npm install
+        workingDirectory: 'src\$(projectName).Web\$(projectName)ClientApp'
+    - task: CmdLine@2
+      displayName: SectionsEC build
+      inputs:
+        script: |
+          npm run build
+        workingDirectory: 'src\$(projectName).Web\$(projectName)ClientApp'
+    - task: CmdLine@2
+      displayName: SectionsEC publish
+      inputs:
+        script: |
+          dotnet publish -c Release
+        workingDirectory: 'src\$(projectName).Web'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: 'src/$(projectName).Web'
+        arguments: '--output $(System.DefaultWorkingDirectory)/publish_output_web/$(projectName) -c Release'
+        zipAfterPublish: false
+    - task: ArchiveFiles@2
+      displayName: 'Archive files'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/publish_output_web/$(projectName)/src'
+        includeRootFolder: false
+        archiveType: zip
+        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        replaceExistingArchive: true
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        ArtifactName: 'web_drop_$(projectName)'
+        publishLocation: 'Container'
+
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+  condition: and(succeeded(), not(eq(variables['Build.Reason'], 'Schedule')))
+
+  jobs:
+  - deployment: DeploySectionsEc
+    displayName: Deploy Sections EC
+    environment: 'etf-stock-azure'
+    variables:
+      projectName: 'TrainLoad'
+      webAppName: 'trainload'
+    pool:
+      vmImage: $(vmImageName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: '$(azureSubscription)'
+              appType: 'webApp'
+              WebAppName: '$(webAppName)'
+              packageForLinux: '$(Pipeline.Workspace)/web_drop_$(projectName)/$(Build.BuildId).zip'
+              AppSettings: '-ASPNETCORE_ENVIRONMENT Production'
+  

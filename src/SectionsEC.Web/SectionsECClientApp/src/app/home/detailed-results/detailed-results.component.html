@@ -1,0 +1,169 @@
+<div >
+  <div *ngIf="!(result$ | async)?.hasSolution">
+      <h3><span class="badge bg-danger">No solution</span> </h3>
+  </div>
+  <div *ngIf="(result$ | async)?.hasSolution">
+      <div class="row">
+          <h3 class="col-md-5">Capacity:</h3>
+          <h3 class="col-md-5"><span class="badge bg-success">{{(result$ | async)?.mrd | customFormat}} [Nmm]</span></h3>
+      </div>
+      <hr />
+      <div class="row">
+          <h3 class="col-md-5">Section</h3>
+      </div>
+      <div class="row">
+          <p class="col-md-5">Depth of the section:</p>
+          <p class="col-md-1">H</p>
+          <p class="col-md-3">= {{(result$ | async)?.h | customFormat}}</p>
+          <p class="col-md-1">[mm]</p>
+      </div>
+      <div class="row">
+          <p class="col-md-5">Centre of gravity from bottom fibre:</p>
+          <p class="col-md-1">C<sub>z</sub> </p>
+          <p class="col-md-3">= {{(result$ | async)?.cz | customFormat}}</p>
+          <p class="col-md-1">[mm]</p>
+      </div>
+      <div class="row">
+          <h3 class="col-md-5">Concrete properties</h3>
+      </div>
+      <div class="row">
+          <p class="col-md-5">Grade:</p>
+          <p class="col-md-5">{{(result$ | async)?.concrete?.grade}}</p>
+      </div>
+      <div class="row">
+          <p class="col-md-5">Design strength:</p>
+          <p class="col-md-1">f<sub>cd</sub> </p>
+          <p class="col-md-3">= {{(result$ | async)?.concrete?.fcd | customFormat}} </p>
+          <p class="col-md-1">[N/mm<sup>2</sup>]</p>
+      </div>
+      <div class="row">
+          <h3 class="col-md-5">Steel properties</h3>
+      </div>
+      <div class="row">
+          <p class="col-md-5">Grade:</p>
+          <p class="col-md-5">{{(result$ | async)?.steel?.grade}}</p>
+      </div>
+      <div class="row">
+          <p class="col-md-5">Yield stress:</p>
+          <p class="col-md-1">f<sub>yd</sub></p>
+          <p class="col-md-3">= {{(result$ | async)?.steel?.fyd | customFormat}}</p>
+          <p class="col-md-1">[N/mm<sup>2</sup>]</p>
+      </div>
+      <div class="row">
+          <p class="col-md-5">Ultimate strain:</p>
+          <p class="col-md-1">&epsilon;<sub>ud</sub></p>
+          <p class="col-md-3">= {{(result$ | async)?.steel?.eud | multiplyBy100 | customFormat}}</p>
+          <p class="col-md-1">[%]</p>
+      </div>
+      <div class="row">
+          <h3 class="col-md-5">External loads</h3>
+      </div>
+      <div class="row">
+          <p class="col-md-5">Axial force:</p>
+          <p class="col-md-1">N<sub>Ed</sub></p>
+          <p class="col-md-3">= {{(result$ | async)?.loadCase?.normalForce | customFormat}}</p>
+          <p class="col-md-1">[N]</p>
+      </div>
+      <div class="row">
+          <h3 class="col-md-5">Results</h3>
+      </div>
+      <div class="row">
+          <p class="col-md-5">Section capacity:</p>
+          <p class="col-md-1">M<sub>Rd</sub> </p>
+          <p class="col-md-3">= {{(result$ | async)?.mrd | customFormat}}</p>
+          <p class="col-md-1">[Nmm]</p>
+      </div>
+      <div class="row">
+          <p class="col-md-5">Depth of compression zone:</p>
+          <p class="col-md-1">X </p>
+          <p class="col-md-3">= {{(result$ | async)?.x | customFormat}}</p>
+          <p class="col-md-1">[mm]</p>
+      </div>
+      <div class="row">
+          <p class="col-md-5">Resultant force of compression zone:</p>
+          <p class="col-md-1">F<sub>Concrete</sub> </p>
+          <p class="col-md-3">= {{(result$ | async)?.forceConcrete | customFormat}}</p>
+          <p class="col-md-1">[N]</p>
+      </div>
+      <div class="row">
+          <p class="col-md-5">Resultant moment of compression zone:</p>
+          <p class="col-md-1">M<sub>Concrete</sub></p>
+          <p class="col-md-3">= {{(result$ | async)?.mrdConcrete | customFormat}}</p>
+          <p class="col-md-1">[Nmm]</p>
+      </div>
+      <h3>Detailed results for reinforcement</h3>
+      <div class="row">
+          <div class="col-md-8">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th class="text-end">#</th>
+                          <th class="text-end">A<sub>s</sub> [mm<sup>2</sup>]</th>
+                          <th class="text-end">d [mm]</th>
+                          <th class="text-end">&epsilon; [%]</th>
+                          <th class="text-end">&sigma; [N/mm<sup>2</sup>]</th>
+                          <th class="text-end">F [N]</th>
+                          <th class="text-end">M [Nmm]</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr class="text-end" *ngFor="let i = index; let bar of (result$ | async)?.reinforcements">
+                          <td>
+                              {{i +1}}
+                          </td>
+                          <td>
+                              {{bar.bar.as | customFormat}}
+                          </td>
+                          <td>
+                              {{bar.d | customFormat}}
+                          </td>
+                          <td>
+                              {{bar.epsilon | multiplyBy100 | customFormat }}
+                          </td>
+                          <td>
+                              {{bar.sigma | customFormat }}
+                          </td>
+                          <td>
+                              {{bar.force | customFormat }}
+                          </td>
+                          <td>
+                              {{bar.moment | customFormat }}
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+
+      <div class="row">
+          <p class="col-md-5">Sum of forces in reinforcement:</p>
+          <p class="col-md-1">&Sigma;F</p>
+          <p class="col-md-3">= {{(result$ | async)?.forceReinforcement | customFormat}}</p>
+          <p class="col-md-1">[N]</p>
+      </div>
+      <div class="row">
+          <p class="col-md-5">Sum of moments in reinforcement:</p>
+          <p class="col-md-1">&Sigma;M</p>
+          <p class="col-md-3">= {{(result$ | async)?.momentReinforcement | customFormat}}</p>
+          <p class="col-md-1">[Nmm]</p>
+      </div>
+      <div class="row">
+          <h3 class="col-md-5">Equilibrium in section:</h3>
+      </div>
+      <div class="row">
+          <p class="col-md-12">
+              F<sub>Concrete</sub> + &Sigma;F - N<sub>Ned</sub>
+              = {{(result$ | async)?.forceConcrete | customFormat}} + {{(result$ | async)?.forceReinforcement | customFormat}} - {{(result$ | async)?.loadCase?.normalForce | customFormat}} = 0.00 [N]
+          </p>
+      </div>
+      <div class="row">
+          <p class="col-md-12">Moment about the bottom fibre (capacity):</p>
+      </div>
+      <div class="row">
+          <p class="col-md-12">
+              M<sub>Concrete</sub> + &Sigma;M - N<sub>Ed</sub> &sdot; C<sub>z</sub> =
+              {{(result$ | async)?.mrdConcrete | customFormat}} + {{(result$ | async)?.momentReinforcement | customFormat}} - {{(result$ | async)?.loadCase?.normalForce | customFormat}} &sdot; {{(result$ | async)?.cz | customFormat}} = <span class="badge bg-success">{{(result$ | async)?.mrd | customFormat}} [Nmm]</span>
+          </p>
+      </div>
+  </div>
+</div>

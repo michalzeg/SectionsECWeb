@@ -1,0 +1,73 @@
+
+<div>
+  <div>
+    <h5>Steel class:</h5>
+    <div class="row">
+      <div class="col-md-6">
+        <p-dropdown [options]="(options$ | async)!" [(ngModel)]="model" optionLabel="grade" (onChange)="onChanged()"
+          [style]="{'width':'100%'}"></p-dropdown>
+      </div>
+    </div>
+  </div>
+  <h5 class="mt-2">Steel properties:</h5>
+  <table class="table" style="width: 50%;">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr pTooltip="Characteristic strength of steel" tooltipPosition="top">
+        <td>&fnof;<sub>yk</sub></td>
+        <td>=</td>
+        <td>{{model.fyk}}</td>
+        <td>[N/mm<sup>2</sup>]</td>
+      </tr>
+      <tr pTooltip="Design strength of steel" tooltipPosition="top">
+        <td >&fnof;<sub>yd</sub></td>
+        <td>=</td>
+        <td>{{model.fyd | number }}</td>
+        <td>[N/mm<sup>2</sup>]</td>
+      </tr>
+      <tr pTooltip="Characteristic strain at maximum force" tooltipPosition="top">
+        <td >&epsilon;<sub>uk</sub></td>
+        <td >=</td>
+        <td>{{model.euk}}</td>
+        <td>[-]</td>
+      </tr>
+      <tr pTooltip="Design strain to characteristic strain" tooltipPosition="top">
+        <td >&epsilon;<sub>ud</sub>/&epsilon;<sub>uk</sub></td>
+        <td >=</td>
+        <td>{{model.eudToEuk}}</td>
+        <td>[-]</td>
+      </tr>
+      <tr pTooltip="Design strain at maximum force" tooltipPosition="top">
+        <td >&epsilon;<sub>ud</sub></td>
+        <td >=</td>
+        <td>{{model.eud | number}}</td>
+        <td>[-]</td>
+      </tr>
+      <tr pTooltip="Factor" tooltipPosition="top">
+        <td >k</td>
+        <td >=</td>
+        <td>{{model.k}}</td>
+        <td>[-]</td>
+      </tr>
+      <tr pTooltip="Modulus of elasticity" tooltipPosition="top">
+        <td >E</td>
+        <td >=</td>
+        <td>{{model.es}}</td>
+        <td>[kN/mm<sup>2</sup>]</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div >
+  <p class="text-center">&sigma;<sub>c</sub>(&epsilon;) [N/mm<sup>2</sup>]</p>
+  <app-stress-chart [designValues]="(designValues$ | async)!"
+    [characteristicValues]="(charValues$ | async)!"></app-stress-chart>
+</div>

@@ -1,0 +1,15 @@
+<p-dialog header="Header" [position]="'top'" [visible]="(visible$ | async) ?? false" (visibleChange)="visibleChanged($event)" [modal]="true" [style]="{ width: '50vw'}" [draggable]="false"
+  [resizable]="false">
+  <ng-template pTemplate="header">
+    <span class="text-xl font-bold">{{modalType$ | async}}</span>
+  </ng-template>
+  <app-concrete *ngIf="(isVisible('Concrete') | async)" ></app-concrete>
+  <app-steel *ngIf="(isVisible('Steel') | async)"></app-steel>
+  <app-sections *ngIf="(isVisible('Section') | async)"></app-sections>
+  <app-loads *ngIf="(isVisible('Loads') | async)"></app-loads>
+
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (onClick)="save()" [disabled]="(disabled$ | async)!" label="Save" styleClass="p-button-outlined p-button-success"></p-button>
+    <p-button icon="pi pi-times" (onClick)="close()" label="Close" styleClass="p-button-outlined"></p-button>
+  </ng-template>
+</p-dialog>

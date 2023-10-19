@@ -1,0 +1,67 @@
+
+  <div>
+    <div>
+      <h5>Concrete class:</h5>
+      <div class="row">
+        <div class="col-md-6">
+          <p-dropdown [options]="(options$ | async)!" [(ngModel)]="model" optionLabel="grade" (onChange)="onChanged()"
+            [style]="{'width':'100%'}"></p-dropdown>
+        </div>
+      </div>
+    </div>
+    <h5 class="mt-2">Concrete properties:</h5>
+    <table class="table" style="width: 50%;">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr pTooltip="Characteristic compressive cylinder strength of concrete at 28 days" tooltipPosition="top">
+          <td>&fnof;<sub>ck</sub></td>
+          <td>=</td>
+          <td>{{model.fck}}</td>
+          <td>[N/mm<sup>2</sup>]</td>
+        </tr>
+        <tr pTooltip="Design compressive cylinder strength of concrete at 28 days" tooltipPosition="top">
+          <td >&fnof;<sub>cd</sub></td>
+          <td>=</td>
+          <td>{{model.fcd | number: '1.0-0'}}</td>
+          <td>[N/mm<sup>2</sup>]</td>
+        </tr>
+        <tr pTooltip="Compressive strain in the concrete at the peak stress" tooltipPosition="top">
+          <td >&epsilon;<sub>cu2</sub></td>
+          <td >=</td>
+          <td>{{model.ec2}}</td>
+          <td>[-]</td>
+        </tr>
+        <tr pTooltip="Ultimate compressive strain in the concrete" tooltipPosition="top">
+          <td >&epsilon;<sub>cu2</sub></td>
+          <td >=</td>
+          <td>{{model.ecu2}}</td>
+          <td>[-]</td>
+        </tr>
+        <tr pTooltip="Coefficient" tooltipPosition="top">
+          <td >&alpha;<sub>cc</sub></td>
+          <td >=</td>
+          <td>{{model.acc}}</td>
+          <td>[-]</td>
+        </tr>
+        <tr pTooltip="Exponent" tooltipPosition="top">
+          <td >n</td>
+          <td >=</td>
+          <td>{{model.n}}</td>
+          <td>[-]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div >
+    <p class="text-center">&sigma;<sub>c</sub>(&epsilon;) [N/mm<sup>2</sup>]</p>
+    <app-stress-chart [designValues]="(designValues$ | async)!"
+      [characteristicValues]="(charValues$ | async)!"></app-stress-chart>
+  </div>

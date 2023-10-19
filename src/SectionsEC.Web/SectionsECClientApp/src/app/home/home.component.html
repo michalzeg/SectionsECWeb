@@ -1,0 +1,34 @@
+
+<h2 class="py-3">Concrete Elements Calculator</h2>
+<h4 class="pb-1">
+    The calculator checks section capacity of structural elements according to EN-1992-1.
+</h4>
+<div class="row py-2">
+  <div class="col-md-12">
+    <p-panel header="Control Panel"><app-control-panel></app-control-panel></p-panel>
+  </div>
+</div>
+
+<div class="row py-2 equal-panel">
+  <div class="col-md-3">
+    <p-panel header="Input"><app-input></app-input></p-panel>
+  </div>
+  <div class="col-md-4">
+    <p-panel header="Section">
+      <app-section></app-section>
+    </p-panel>
+  </div>
+  <div class="col-md-5">
+    <p-panel header="Results"><app-results></app-results></p-panel>
+  </div>
+</div>
+
+<div class="row py-2">
+  <div class="col-3"></div>
+  <div class="col-9">
+    <p-panel header="Detailed Results"><app-detailed-results></app-detailed-results></p-panel>
+  </div>
+</div>
+
+
+<app-modal-base></app-modal-base>

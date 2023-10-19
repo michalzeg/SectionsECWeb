@@ -1,0 +1,26 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Normal Force [N]</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let load of loads; let i = index">
+      <td class="align-middle">{{i +1}}</td>
+      <td><input pInputText type="text" [(ngModel)]="load.name" required (ngModelChange)="onModelChanged(i)" /></td>
+      <td><input pInputText type="number" [(ngModel)]="load.normalForce" required (ngModelChange)="onModelChanged(i)" />
+      </td>
+      <td class="align-middle"><p-button icon="pi pi-times" (onClick)="onRemove(i)" [disabled]="loads.length === 1"
+          styleClass="p-button-rounded p-button-danger p-button-outlined"></p-button>
+        </td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+<p-button label="Add Load" (onClick)="onAddLoad()" [disabled]="loads.length > 3"></p-button>

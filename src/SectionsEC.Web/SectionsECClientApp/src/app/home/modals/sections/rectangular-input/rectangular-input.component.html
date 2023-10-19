@@ -1,0 +1,81 @@
+<form [formGroup]="form">
+  <div class="row mb-3">
+    <div class="col-md-6 form-horizontal">
+        <h5> Width:</h5>
+        <div class="row">
+            <div class="col-md-2">b = </div>
+            <div class="col-md-6 ">
+                <input type="number" class="form-control" formControlName="width">
+            </div>
+            <div class="col-md-2">[mm]</div>
+        </div>
+    </div>
+    <div class="col-md-6 form-horizontal">
+        <h5>Height:</h5>
+        <div class="row">
+            <div class="col-md-2">h = </div>
+            <div class="col-md-6 ">
+                <input type="number" class="form-control" formControlName="height">
+            </div>
+            <div class="col-md-2">[mm]</div>
+        </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-6 form-horizontal">
+        <h5>Diameter of bottom bars:</h5>
+        <div class="row">
+            <div class="col-md-2">&phi;<sub>b</sub> = </div>
+            <div class="col-md-6 ">
+                <input type="number" class="form-control" formControlName="bottomBarDiameter">
+            </div>
+            <div class="col-md-2">[mm]</div>
+        </div>
+    </div>
+
+    <div class="col-md-6 form-horizontal">
+        <h5>Number of bottom bars:</h5>
+        <div class="row">
+            <div class="col-md-2">n<sub>b</sub> = </div>
+            <div class="col-md-6 ">
+                <input type="number" class="form-control" formControlName="bottomBarCount">
+            </div>
+            <div class="col-md-2">[-]</div>
+        </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-6 form-horizontal">
+        <h5>Diameter of top bars:</h5>
+        <div class="row">
+            <div class="col-md-2">&phi;<sub>t</sub> = </div>
+            <div class="col-md-6 ">
+                <input type="number" class="form-control" formControlName="topBarDiameter">
+            </div>
+            <div class="col-md-2">[mm]</div>
+        </div>
+    </div>
+    <div class="col-md-6 form-horizontal">
+        <h5>Number of top bars:</h5>
+        <div class="row">
+            <div class="col-md-2">n<sub>t</sub> = </div>
+            <div class="col-md-6 ">
+                <input type="number" class="form-control" formControlName="topBarCount">
+            </div>
+            <div class="col-md-2">[-]</div>
+        </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-6 form-horizontal">
+        <h5>Cover:</h5>
+        <div class="row">
+            <div class="col-md-2">c = </div>
+            <div class="col-md-6 ">
+                <input type="number" class="form-control" formControlName="cover">
+            </div>
+            <div class="col-md-2">[mm]</div>
+        </div>
+    </div>
+  </div>
+</form>

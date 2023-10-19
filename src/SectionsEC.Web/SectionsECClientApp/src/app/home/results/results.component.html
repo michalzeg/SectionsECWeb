@@ -1,0 +1,39 @@
+<div >
+  <div class="row">
+          <h5 class="col-md-5">Compression capacity: </h5>
+          <h5 class="col-md-4 text-end">{{(result$ | async)?.forceConcrete | customFormat}}</h5>
+          <h5 class="col-md-1">[N]</h5>
+  </div>
+  <div class="row">
+          <h5 class="col-md-5">Tension capacity: </h5>
+          <h5 class="col-md-4 text-end">{{(result$ | async)?.forceReinforcement | customFormat}}</h5>
+      <h5 class="col-md-1">[N]</h5>
+  </div>
+  <br />
+  <table class="table">
+      <thead>
+          <tr>
+              <th class="text-left">#</th>
+              <th class="text-left">Load Case</th>
+              <th class="text-left">Axial Force [N]</th>
+              <th class="text-left">Capacity [Nmm]</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr class="vert-align " *ngFor="let i = index; let result of results$ | async" >
+              <td class="col-sm-1">
+                  <h6 class="control-h6">{{i + 1}}</h6>
+              </td>
+              <td class="col-sm-2">
+                  <h6 class="control-h6">{{result?.loadCase?.name}}</h6>
+              </td>
+              <td class="col-sm-3">
+                  <h6 class="control-h6">{{result?.loadCase?.normalForce | customFormat}}</h6>
+              </td>
+              <td class="col-sm-3">
+                  <h6 class="control-h6">{{result?.mrd | customFormat}}</h6>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>

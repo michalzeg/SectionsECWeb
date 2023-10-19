@@ -1,0 +1,48 @@
+<form [formGroup]="form">
+  <div class="row mb-3">
+    <div class="col-md-6 form-horizontal">
+        <h5> Diameter:</h5>
+        <div class="row">
+            <div class="col-md-2">d = </div>
+            <div class="col-md-6 ">
+                <input type="number" class="form-control"  formControlName="diameter">
+            </div>
+            <div class="col-md-2">[mm]</div>
+        </div>
+    </div>
+    <div class="col-md-6 form-horizontal">
+        <h5>Diameter of bars:</h5>
+        <div class="row">
+            <div class="col-md-2">&phi; = </div>
+            <div class="col-md-6 ">
+                <input type="number" class="form-control"  formControlName="barDiameter">
+            </div>
+            <div class="col-md-2">[mm]</div>
+        </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-6 form-horizontal">
+        <h5>Cover:</h5>
+        <div class="row">
+            <div class="col-md-2">c = </div>
+            <div class="col-md-6 ">
+                <input type="number" class="form-control" formControlName="cover">
+            </div>
+            <div class="col-md-2">[mm]</div>
+        </div>
+    </div>
+
+    <div class="col-md-6 form-horizontal">
+        <h5>Number of bars:</h5>
+        <div class="row">
+            <div class="col-md-2">n = </div>
+            <div class="col-md-6 ">
+                <input type="number" class="form-control" formControlName="barCount">
+            </div>
+            <div class="col-md-2">[-]</div>
+        </div>
+    </div>
+  </div>
+</form>
+

@@ -1,0 +1,24 @@
+<form [formGroup]="form">
+  <div class="row mb-3">
+    <div class="col-md-6 form-horizontal">
+        <h5>Section coordinates (x<sub>1</sub>;y<sub>1</sub> x<sub>2</sub>;y<sub>2</sub>):</h5>
+        <div class="row">
+            <div class="col-md-12 ">
+              <input class="form-control"
+              formControlName="sectionCoordinates" >
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-6 form-horizontal">
+        <h5>Reinforcement coordinates (x<sub>1</sub>;y<sub>1</sub>;&phi;<sub>1</sub> x<sub>2</sub>;y<sub>2</sub>;&phi;<sub>2</sub>):</h5>
+        <div class="row">
+            <div class="col-md-12 ">
+              <input class="form-control"
+              formControlName="barCoordinates">
+            </div>
+        </div>
+    </div>
+  </div>
+</form >

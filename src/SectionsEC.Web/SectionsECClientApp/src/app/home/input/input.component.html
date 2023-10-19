@@ -1,0 +1,34 @@
+
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <h5 class="control-h6">Load case:</h5>
+      <p-dropdown [options]="(loads$ | async)!" [(ngModel)]="model" (ngModelChange)="changed()" optionLabel="name"
+        [style]="{'width':'100%'}"></p-dropdown>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h6 class="control-h6">Axial force:</h6>
+    </div>
+    <div class="col-sm-6">
+      <h6 class="control-h6">{{model?.normalForce | customFormat}} [N]</h6>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h6 class="control-h6">Concrete:</h6>
+    </div>
+    <div class="col-sm-6">
+      <h6 class="control-h6">{{concreteGrade$ | async}}</h6>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h6 class="control-h6">Steel:</h6>
+    </div>
+    <div class="col-sm-6">
+      <h6 class="control-h6">{{steelGrade$ | async}}</h6>
+    </div>
+  </div>
+

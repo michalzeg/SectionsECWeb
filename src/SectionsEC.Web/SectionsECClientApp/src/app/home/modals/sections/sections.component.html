@@ -1,0 +1,19 @@
+<p-tabView styleClass="tabview-custom" [activeIndex]="(activeIndex$ | async)!" (activeIndexChange)="indexChanged($event)">
+  <p-tabPanel header="Rectangular">
+    <app-rectangular-input></app-rectangular-input>
+  </p-tabPanel>
+  <p-tabPanel header="Circular">
+    <app-circular-input></app-circular-input>
+  </p-tabPanel>
+  <p-tabPanel header="Custom">
+    <app-custom-input></app-custom-input>
+  </p-tabPanel>
+</p-tabView>
+
+
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6" >
+    <app-drawing-base [bars]="(bars$ | async)!" [coordinates]="(coordinates$ | async)!" ></app-drawing-base>
+  </div>
+</div>

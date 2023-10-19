@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-5">
+    <button pButton class="p-button-primary me-1" (click)="openModal('Concrete')">Concrete</button>
+    <button pButton class="p-button-primary me-1" (click)="openModal('Steel')">Steel</button>
+    <button pButton class="p-button-primary me-1" (click)="openModal('Section')">Section</button>
+    <button pButton class="p-button-primary me-1" (click)="openModal('Loads')">Loads</button>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-md-12">
+    <p-button label="Calculate" (click)="calculate()" [icon]="(buttonClass$ | async)!"
+      [styleClass]="(buttonStyle$ | async)!"></p-button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <p-messages [value]="(messages$ | async) ?? []" [enableService]="false" [closable]="false"
+      [hideTransitionOptions]="'0ms'" [showTransitionOptions]="'0ms'"></p-messages>
+  </div>
+</div>
