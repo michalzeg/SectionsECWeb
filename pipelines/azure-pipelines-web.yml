@@ -27,7 +27,7 @@ variables:
   dotnetVersion: '7'
   # Agent VM image name
   vmImageName: 'windows-2022'
-  vmLinuxImageName: 'ubuntu-20.04'
+  vmLinuxImageName: 'ubuntu-latest'
   appName: 'Web'
 
 
